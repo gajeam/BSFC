@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'BSFC.apps.item',
+    'BSFC.apps.cost'
 ]
 
 MIDDLEWARE_CLASSES = [
