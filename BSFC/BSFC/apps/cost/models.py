@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 
-class Cost(models):
+class Cost(models.Model):
     """Model to describe the cost of an item"""
     item_cost = models.FloatField()
 
