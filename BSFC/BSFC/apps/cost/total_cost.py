@@ -1,11 +1,13 @@
 from BSFC.apps.item.models import Item
 
-A = Items.objects.all()
+def total_cost()
 
-total = 0
+	A = Items.objects.all()
 
-for thing in A
-	total += thing.cost.item_cost*thing.count
+	total = 0
 
-return total
+	for thing in A
+		total += thing.cost.item_cost*thing.count
+
+	return total
 
