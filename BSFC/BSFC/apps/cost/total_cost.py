@@ -1,6 +1,6 @@
 from BSFC.apps.item.models import Item
 
-def total_cost()
+def total_cost():
 
 	A = Item.objects.all()
 
