@@ -43,13 +43,11 @@ class Item(models.Model):
         (GRAB_AND_GO, "Grab & Go"),
         (FROZEN, "Frozen")
     ]
-    name = models.CharField(max_length=100,
-                            null=True,
-                            blank=True)
+    name = models.CharField(max_length=100)
     description = models.TextField(null=True,
                                    blank=True)
-    # quantity can refer to # of that item or amount of units of item
-    quantity = models.FloatField()
+    # quantity can refer to # of that item or amount of units of item sold
+    quantity_sold = models.FloatField()
     cost = models.OneToOneField(
         Cost,
         on_delete=models.CASCADE,
