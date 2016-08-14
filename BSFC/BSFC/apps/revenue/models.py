@@ -18,8 +18,8 @@ class Revenue(models.Model):
 
     def __str__(self):
         return ' | '.join([
-            self.store_use,
-            self.spoilage,
-            self.food_prep,
-            self.committee
+            str(self.store_use),
+            str(self.spoilage),
+            str(self.food_prep),
+            str(self.committee)
         ])

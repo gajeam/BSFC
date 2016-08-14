@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 from BSFC.apps.cost.models import Cost
+from BSFC.apps.revenue.models import Revenue
 from BSFC.apps.item.constants import (
     FIXED, PER_UNIT,
     BAKERY,
@@ -17,6 +18,7 @@ from BSFC.apps.item.constants import (
     GRAB_AND_GO,
     FROZEN
 )
+from django.utils import timezone
 
 # Create your models here.
 
@@ -46,9 +48,15 @@ class Item(models.Model):
                             blank=True)
     description = models.TextField(null=True,
                                    blank=True)
-    count = models.IntegerField()
+    # quantity can refer to # of that item or amount of units of item
+    quantity = models.FloatField()
     cost = models.OneToOneField(
         Cost,
+        on_delete=models.CASCADE,
+        primary_key=True
+    )
+    revenue = models.OneToOneField(
+        Revenue,
         on_delete=models.CASCADE,
         primary_key=True
     )
@@ -65,5 +73,4 @@ class Item(models.Model):
                                 choices=category_choices,
                                 default=None,
                                 null=True)
-
-
+    created_at = models.DateTimeField(auto_now_add=True)
