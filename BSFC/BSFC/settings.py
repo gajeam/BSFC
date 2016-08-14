@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'BSFC.apps.item',
     'BSFC.apps.cost',
     'BSFC.apps.revenue'
