@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BSFC.apps.item',
-    'BSFC.apps.cost'
+    'BSFC.apps.cost',
+    'BSFC.apps.revenue'
 ]
 
 MIDDLEWARE_CLASSES = [
