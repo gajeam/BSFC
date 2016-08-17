@@ -14,3 +14,9 @@ BEVERAGE = 'BEV'
 CHILL = 'C'
 GRAB_AND_GO = 'G&G'
 FROZEN = 'FR'
+
+# tender choices
+STORE_USE = 'Store Use'
+FOOD_PREP = 'Food Prep / Food Events'
+SPOILAGE = 'Shrinkage (Spoilage, &c.)'
+COMMITTEE = 'Committee, Misc. Losses'
