@@ -25,6 +25,19 @@ class Revenue(models.Model):
 
       self.save()
 
+    def get_revenue_field(field_key):
+      if field_key == STORE_USE
+        return self.store_use
+      elif field_key == SPOILAGE
+        return self.spoilage
+      elif field_key == FOOD_PREP
+        return self.food_prep
+      elif field_key == COMMITTEE
+        return self.committee
+      else
+        return self.sold
+
+
     def __str__(self):
         return ' | '.join([
             str(self.store_use),
