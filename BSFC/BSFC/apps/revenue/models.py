@@ -1,3 +1,5 @@
+from Revenue.objects.constants import tender_choices
+
 class Revenue(models.Model):
     """Model for fields to take off revenue calc"""
     store_use = models.FloatField(null=True,
@@ -12,13 +14,13 @@ class Revenue(models.Model):
                              default=0.0)
 
     def update_revenue_field(field_key, amount):
-      if field_key == STORE_USE
+      if field_key == tender_choices['STORE_USE']
         self.store_use += amount
-      elif field_key == SPOILAGE
+      elif field_key == tender_choices['SPOILAGE']
         self.spoilage += amount
-      elif field_key == FOOD_PREP
+      elif field_key == tender_choices['FOOD_PREP']
         self.food_prep += amount
-      elif field_key == COMMITTEE
+      elif field_key == tender_choices['COMMITTEE']
         self.committee += amount
       else
         self.sold += amount
@@ -26,13 +28,13 @@ class Revenue(models.Model):
       self.save()
 
     def get_revenue_field(field_key):
-      if field_key == STORE_USE
+      if field_key == tender_choices['STORE_USE']
         return self.store_use
-      elif field_key == SPOILAGE
+      elif field_key == tender_choices['SPOILAGE']
         return self.spoilage
-      elif field_key == FOOD_PREP
+      elif field_key == tender_choices['FOOD_PREP']
         return self.food_prep
-      elif field_key == COMMITTEE
+      elif field_key == tender_choices['COMMITTEE']
         return self.committee
       else
         return self.sold
