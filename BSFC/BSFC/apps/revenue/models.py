@@ -1,3 +1,9 @@
+from __future__ import unicode_literals
+
+from django.db import models
+
+# Create your models here.
+
 from Revenue.objects.constants import tender_choices
 
 class Revenue(models.Model):
