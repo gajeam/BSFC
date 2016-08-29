@@ -18,6 +18,6 @@ def update_todays_items():
 		payment_type = payment_dict['tender']['label']
 		order_dict = #get corresponding order with payment['order']['id'], expanding by 'lineItems,' 'discounts'
 		for line_item_dict in order_dict['lineItems']['elements']
-			Item.objects.filter(name = line_item_dict['name'], created_at.date() = todays_date).update_revenue_field(payment_type, item.quantity)  
+			Item.objects.get(name = line_item_dict['name'], created_at.date() = todays_date).revenue.update_revenue_field(payment_type, item.quantity)  
 			
 
