@@ -4,6 +4,7 @@ from django.db import models
 
 from BSFC.apps.cost.models import Cost
 from BSFC.apps.revenue.models import Revenue
+from BSFC.apps.discounts.models import Discounts
 from BSFC.apps.item.constants import (
     FIXED, PER_UNIT,
     BAKERY,
@@ -52,6 +53,10 @@ class Item(models.Model):
     )
     revenue = models.OneToOneField(
         Revenue,
+        on_delete=models.CASCADE,
+    )
+    discounts = models.OneToOneField(
+        Discounts,
         on_delete=models.CASCADE,
     )
     label = models.CharField(max_length=100,
