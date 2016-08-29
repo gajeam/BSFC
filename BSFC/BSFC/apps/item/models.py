@@ -49,12 +49,10 @@ class Item(models.Model):
     cost = models.OneToOneField(
         Cost,
         on_delete=models.CASCADE,
-        primary_key=True
     )
     revenue = models.OneToOneField(
         Revenue,
         on_delete=models.CASCADE,
-        primary_key=True
     )
     label = models.CharField(max_length=100,
                              null=True)
@@ -70,6 +68,6 @@ class Item(models.Model):
                                 default=None,
                                 null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-                                default=None,
-                                null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.name)

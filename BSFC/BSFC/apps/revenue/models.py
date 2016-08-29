@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 
-from Revenue.objects.constants import tender_choices
+from BSFC.apps.revenue.constants import tender_choices
 
 class Revenue(models.Model):
     """Model for fields to take off revenue calc"""
@@ -20,29 +20,29 @@ class Revenue(models.Model):
                              default=0.0)
 
     def update_revenue_field(field_key, amount):
-      if field_key == tender_choices['STORE_USE']
+      if field_key == tender_choices['STORE_USE']:
         self.store_use += amount
-      elif field_key == tender_choices['SPOILAGE']
+      elif field_key == tender_choices['SPOILAGE']:
         self.spoilage += amount
-      elif field_key == tender_choices['FOOD_PREP']
+      elif field_key == tender_choices['FOOD_PREP']:
         self.food_prep += amount
-      elif field_key == tender_choices['COMMITTEE']
+      elif field_key == tender_choices['COMMITTEE']:
         self.committee += amount
-      else
+      else:
         self.sold += amount
 
       self.save()
 
     def get_revenue_field(field_key):
-      if field_key == tender_choices['STORE_USE']
+      if field_key == tender_choices['STORE_USE']:
         return self.store_use
-      elif field_key == tender_choices['SPOILAGE']
+      elif field_key == tender_choices['SPOILAGE']:
         return self.spoilage
-      elif field_key == tender_choices['FOOD_PREP']
+      elif field_key == tender_choices['FOOD_PREP']:
         return self.food_prep
-      elif field_key == tender_choices['COMMITTEE']
+      elif field_key == tender_choices['COMMITTEE']:
         return self.committee
-      else
+      else:
         return self.sold
 
 
