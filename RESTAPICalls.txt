@@ -1,0 +1,20 @@
+get_todays_inventory
+	input params:
+	REST call: get all items
+	filters: 'createdTime' falls within the last 24 hours
+	expansions: categories
+	return: list of items ('elements') with at least: name, cost, price, price type, unit name, and category for each item
+
+get_todays_payments
+	input params:
+	REST call: get all payments
+	filters: 'createdTime' falls within the last 24 hours
+	expansions: order, refunds (for future use), tender
+	return: list of payments ('elements') with at least: corresponding order id, refunds list, tender, and tip amount
+
+get_payment_order
+	input params: order id
+	REST call: get order of specified id
+	filters:
+	expansions: line items, discounts (for future use)
+	return: list of line items, discounts
