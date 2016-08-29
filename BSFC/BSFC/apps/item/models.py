@@ -46,8 +46,6 @@ class Item(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True,
                                    blank=True)
-    # quantity can refer to # of that item or amount of units of item sold
-    quantity_sold = models.FloatField()
     cost = models.OneToOneField(
         Cost,
         on_delete=models.CASCADE,
@@ -69,6 +67,9 @@ class Item(models.Model):
                                  null=True)
     category = models.CharField(max_length=100,
                                 choices=category_choices,
+                                default=None,
+                                null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
                                 default=None,
                                 null=True)
     created_at = models.DateTimeField(auto_now_add=True)
