@@ -8,6 +8,10 @@ from item_calculations import (
     item_revenue, item_cogs, item_losses, item_profit
 )
 
+from tip_calculations import (
+	get_tips
+)
+
 
 def get_items_between_dates(start_date, end_date):
     return Item.objects.filter(created_at__gte=start_date, created_at__lte=end_date)
@@ -38,8 +42,9 @@ def all_losses(start_date, end_date, field_key):
 
 
 def all_profit(start_date, end_date):
+	"""includes tips, discounts, [refunds to be implemented]"""
     item_qs = get_items_between_dates(start_date, end_date)
     total_profit = 0
     for item in item_qs:
         total_profit += item_profit(item.name, start_date, end_date)
-    return total_profit
+    return total_profit + get_tips(start_date, end_date)
