@@ -5,7 +5,7 @@ from BSFC.apps.revenue.constants import (
     tender_choices
 )
 from item_calculations import (
-    item_revenue, item_cogs, item_losses, item_profit
+    item_revenue, item_cogs, item_losses, item_refunds_discounts, item_profit
 )
 
 
@@ -35,6 +35,12 @@ def all_losses(start_date, end_date, field_key):
     for item in item_qs:
         total_losses += item_losses(item.name, start_date, end_date, field_key)
     return total_losses
+
+def all_refunds_discounts(start_date, end_date)
+	item_qs = get_items_between_dates(start_date, end_date)
+	total_refunds_discounts = 0
+	for item in item_qs:
+		total_refunds_discounts += item_refunds_discounts(item.name, start_date, end_date)
 
 
 def all_profit(start_date, end_date):

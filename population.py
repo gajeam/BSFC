@@ -14,10 +14,22 @@ def update_todays_items():
 	todays_payments = #call to REST API to get list of all payments, expanding by 'order,' 'refunds,' and 'tender' and filtering by day
 
 	for payment_dict in todays_payments:
+		member_disc = False
+		other_disc = False
 		todays_date = #whatever convention we are using for dates...?
 		payment_type = payment_dict['tender']['label']
 		order_dict = #get corresponding order with payment['order']['id'], expanding by 'lineItems,' 'discounts'
-		for line_item_dict in order_dict['lineItems']['elements']
+		if 'discounts' in order_dict:
+			if order_dict['discounts']['name'] == 'Member': #?
+				member_disc = True
+			elif 'percentage' in order_dict['discounts']:
+				other_disc = True
+			else:
+				Discount.objects.create(other = order_dict['discounts']['amount'])
+		for line_item_dict in order_dict['lineItems']['elements']:
 			Item.objects.get(name = line_item_dict['name'], created_at.date() = todays_date).revenue.update_revenue_field(payment_type, item.quantity)  
-			
+			if member_disc:
+				Item.objects.get(name = line_item_dict['name'], created_at.date() = todays_date).discounts.update_discounts(item.quantity, True)
+			elif other_disc:
+				Item.objects.get(name = line_item_dict['name'], created_at.date() = todays_date).discounts.update_discounts(item.quantity, False)
 

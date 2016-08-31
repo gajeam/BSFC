@@ -15,7 +15,7 @@ def item_revenue(name, start_date, end_date):
     total_revenue = 0
     for item in item_qs:
         price = item.price #included in for loop to account for changing prices over time
-        total_revenue += item.revenue.get_revenue_field(tender_choices['SOLD'])*price #minus refunds, discounts
+        total_revenue += item.revenue.get_revenue_field(tender_choices['SOLD'])*price 
     return total_revenue
 
 
@@ -36,11 +36,17 @@ def item_losses(name, start_date, end_date, field_key):
         total_losses += item.revenue.get_revenue_field(field_key)*cost
     return total_losses
 
+def item_refunds_discounts(name, start_date, end_date)
+	item_qs = get_items_between_dates_by_name(name, start_date, end_date)
+	total_refunds_discounts = 0
+	for item in item_qs:
+		total_refunds_discounts += item.discounts.get_discounts(False) #plus refunds, not implemented yet
+	return total_refunds_discounts
+
 
 def item_profit(name, start_date, end_date):
     item_losses = 0
     item_qs = get_items_between_dates_by_name(name, start_date, end_date)
-
     for item in item_qs:
         item_losses += sum([item.revenue.get_revenue_field(key) for key in tender_choices if key != 'SOLD'])
-    return item_revenue(name, start_date, end_date) - item_cogs(name, start_date, end_date) - item_losses
+    return item_revenue(name, start_date, end_date) - item_cogs(name, start_date, end_date) - item_refunds_discounts(name, start_date, end_date) - item_losses
