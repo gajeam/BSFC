@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'BSFC.apps.item',
     'BSFC.apps.cost',
-    'BSFC.apps.revenue'
+    'BSFC.apps.revenue',
+    'BSFC.apps.tips'
 ]
 
 MIDDLEWARE_CLASSES = [
