@@ -18,5 +18,8 @@ def populate_single_day():
 				Item.objects.get(name = line_item_dict['name'], created_at.date() = todays_date).revenue.update_revenue_field(payment_type, quantity)
 			else:
 				item_dict = #call to REST API to get item; use line_item_dict['elements']['item']['id']
-				Items.objects.create(name = item_dict['name'], cost = Cost.objects.create(item_cost = item_dict['cost']), price = item_dict['price'], price_type = item_dict['priceType'], unit_name = item_dict['unitName'] if 'unitName' in item_dict else None, category = item_dict['categories']['elements'][0]['name'], revenue = Revenue.objects.create(payment_type, quantity)) 
+				revenue_object = Revenue()
+				revenue_object.update_revenue_field(payment_type, quantity)
+				revenue_object.save()
+				Items.objects.create(name = item_dict['name'], cost = Cost.objects.create(item_cost = item_dict['cost']), price = item_dict['price'], price_type = item_dict['priceType'], unit_name = item_dict['unitName'] if 'unitName' in item_dict else None, category = item_dict['categories']['elements'][0]['name'], revenue = revenue_object) 
 
