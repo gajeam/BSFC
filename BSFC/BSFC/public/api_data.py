@@ -18,6 +18,8 @@ def get_api_data(endpoint, filterItems=None, expandItems=None):
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         # this gives a list of objects (dicts) of endpoint, expanded by params
-        elements = response.json()['elements']
-        return elements
+        resp_json = response.json()
+        if 'elements' in resp_json:
+            return resp_json['elements']
+        return resp_json
     return []
