@@ -16,20 +16,23 @@ def populate_single_day():
     )
     #call to REST API to get list of all payments, expanding by 'order,' 'refunds,' and 'tender' and filtering by day
 
-	for payment_dict in todays_payments:
-		todays_date = #whatever convention we are using for dates...?
-		payment_type = payment_dict['tender']['label']
+    for payment_dict in todays_payments:
+        todays_date = datetime.today()
+        #whatever convention we are using for dates...?
+        payment_type = payment_dict['tender']['label']
         order_id = payment_dict['order']['id']
-		order_dict = get_api_data(
+        order_dict = get_api_data(
             'orders/' + str(order_id),
             expandItems='lineItems,discounts'
         )
         #get corresponding order with payment['order']['id'], expanding by 'lineItems,' 'discounts'
-		for line_item_dict in order_dict['lineItems']['elements']:
+        for line_item_dict in order_dict['lineItems']['elements']:
             quantity = line_item_dict['unitQty']/1000 if 'unitQty' in line_item_dict else 1
-			if Item.objects.filter(name=line_item_dict['name'], created_at.date()=todays_date).exists():
-				Item.objects.get(name = line_item_dict['name'], created_at.date() = todays_date).revenue.update_revenue_field(payment_type, quantity)
-			else:
+            if Item.objects.filter(name=line_item_dict['name'], created_at.date()=todays_date).exists():
+            	Item.objects.get(
+                    name=line_item_dict['name'],
+                    created_at.date()=todays_date).revenue.update_revenue_field(payment_type, quantity)
+            else:
                 item_dict = get_api_data(
                     'items/' + str(line_item_dict['item']['id']),
                     expandItems='categories'
