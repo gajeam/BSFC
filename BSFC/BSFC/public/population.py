@@ -1,7 +1,7 @@
 from BSFC.apps.item.models import Item
 from BSFC.apps.cost.models import Cost
 from BSFC.apps.revenue.models import Revenue
-from BSFC.public.api_data import get_api_data
+from api_data import get_api_data
 import time
 from datetime import datetime, timedelta
 
