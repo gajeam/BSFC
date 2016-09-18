@@ -1,6 +1,7 @@
 from BSFC.apps.item.models import Item
 from BSFC.apps.cost.models import Cost
 from BSFC.apps.revenue.models import Revenue
+from validation import validate_item
 from api_data import get_api_data
 import time
 from datetime import datetime, timedelta
@@ -41,6 +42,7 @@ def populate_single_day():
                 revenue_object = Revenue()
                 revenue_object.update_revenue_field(payment_type, quantity)
                 revenue_object.save()
+                validate_item(item_dict)
                 Items.objects.create(
                     name=item_dict['name'],
                     cost=Cost.objects.create(item_cost=item_dict['cost']),
