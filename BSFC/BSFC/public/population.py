@@ -5,10 +5,13 @@ from validation import validate_item
 from api_data import get_api_data
 import time
 from datetime import datetime, timedelta
+import logging
+log = logging.getLogger('django')
 
 def populate_single_day():
     """use payments from the day to record quantity of each item contributing to revenue calculation"""
-    yesterday = datetime.today() + timedelta(days=-1)
+    todays_datetime = datetime.today()
+    yesterday = todays_datetime + timedelta(days=-1)
     yesterday_timestamp_ms = int(time.mktime(yesterday.timetuple())) * 1000
     todays_payments = get_api_data(
         'payments',
@@ -26,13 +29,14 @@ def populate_single_day():
             'orders/' + str(order_id),
             expandItems='lineItems,discounts'
         )
+        beginning_of_day = datetime(todays_datetime.year, todays_datetime.month, todays_datetime.day, 0, 0, 0, 0)
+        end_of_day = datetime(todays_datetime.year, todays_datetime.month, todays_datetime.day, 23, 59, 59, 59)
         #get corresponding order with payment['order']['id'], expanding by 'lineItems,' 'discounts'
         for line_item_dict in order_dict['lineItems']['elements']:
             quantity = line_item_dict['unitQty']/1000 if 'unitQty' in line_item_dict else 1
-            if Item.objects.filter(name=line_item_dict['name'], created_at.date()=todays_date).exists():
-            	Item.objects.get(
-                    name=line_item_dict['name'],
-                    created_at.date()=todays_date).revenue.update_revenue_field(payment_type, quantity)
+            item_qs = Item.objects.filter(name=line_item_dict['name'], created_at__gte=beginning_of_day, created_at__lte=end_of_day)
+            if item_qs.exists():
+            	item_qs[0].revenue.update_revenue_field(payment_type, quantity)
             else:
                 item_dict = get_api_data(
                     'items/' + str(line_item_dict['item']['id']),
@@ -42,8 +46,8 @@ def populate_single_day():
                 revenue_object = Revenue()
                 revenue_object.update_revenue_field(payment_type, quantity)
                 revenue_object.save()
-                validate_item(item_dict)
-                Items.objects.create(
+                item_dict = validate_item(item_dict)
+                Item.objects.create(
                     name=item_dict['name'],
                     cost=Cost.objects.create(item_cost=item_dict['cost']),
                     price=item_dict['price'],
