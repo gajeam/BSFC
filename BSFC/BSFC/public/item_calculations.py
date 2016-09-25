@@ -42,5 +42,6 @@ def item_profit(name, start_date, end_date):
     item_qs = get_items_between_dates_by_name(name, start_date, end_date)
 
     for item in item_qs:
-        item_losses += sum([item.revenue.get_revenue_field(key) for key in tender_choices if key != 'SOLD'])
+        cost = item.cost.item_cost #included in for loop to account for changing costs over time
+        item_losses += sum([item.revenue.get_revenue_field(tender_choices[key])*cost for key in tender_choices if key != 'SOLD'])
     return item_revenue(name, start_date, end_date) - item_cogs(name, start_date, end_date) - item_losses
