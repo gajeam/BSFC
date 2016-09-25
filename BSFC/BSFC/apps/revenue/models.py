@@ -19,7 +19,7 @@ class Revenue(models.Model):
     sold = models.FloatField(null=True,
                              default=0.0)
 
-    def update_revenue_field(field_key, amount):
+    def update_revenue_field(self, field_key, amount):
       if field_key == tender_choices['STORE_USE']:
         self.store_use += amount
       elif field_key == tender_choices['SPOILAGE']:
@@ -33,7 +33,7 @@ class Revenue(models.Model):
 
       self.save()
 
-    def get_revenue_field(field_key):
+    def get_revenue_field(self, field_key):
       if field_key == tender_choices['STORE_USE']:
         return self.store_use
       elif field_key == tender_choices['SPOILAGE']:
