@@ -2,6 +2,7 @@ from BSFC.apps.item.models import Item
 from BSFC.apps.cost.models import Cost
 from BSFC.apps.revenue.models import Revenue
 from validation import validate_item
+from validation import validate_line_item
 from api_data import get_api_data
 import time
 from datetime import datetime, timedelta
@@ -19,7 +20,6 @@ def populate_single_day():
 
     for payment_dict in todays_payments:
         todays_date = datetime.today()
-        #whatever convention we are using for dates...?
         payment_type = payment_dict['tender']['label']
         order_id = payment_dict['order']['id']
         order_dict = get_api_data(
@@ -34,11 +34,13 @@ def populate_single_day():
                     name=line_item_dict['name'],
                     created_at.date()=todays_date).revenue.update_revenue_field(payment_type, quantity)
             else:
-                item_dict = get_api_data(
+                item_dict = validate_line_item(line_item_dict) #returns None if item_dict is validated properly; in that case proceed to make REST API call
+                if item_dict == None:
+                    item_dict = get_api_data(
                     'items/' + str(line_item_dict['item']['id']),
                     expandItems='categories'
                 )
-                #call to REST API to get item; use line_item_dict['elements']['item']['id']
+
                 revenue_object = Revenue()
                 revenue_object.update_revenue_field(payment_type, quantity)
                 revenue_object.save()
