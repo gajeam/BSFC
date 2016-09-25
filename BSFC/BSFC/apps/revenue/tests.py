@@ -44,7 +44,6 @@ class TestCostOfGoodsSold(TestCase):
     	all_profit = 0
     	for item in self.items:
     		all_profit += item.revenue.sold * (item.price - item.cost.item_cost)
-    		for key in tender_choices:
-    			for key in ['STORE_USE', 'FOOD_PREP', 'SPOILAGE', 'COMMITTEE']:
-    				all_profit -= item.revenue.get_revenue_field(tender_choices[key]) * item.cost.item_cost
+    		for key in ['STORE_USE', 'FOOD_PREP', 'SPOILAGE', 'COMMITTEE']:
+    			all_profit -= item.revenue.get_revenue_field(tender_choices[key]) * item.cost.item_cost
     	self.assertEquals(all_profit_expected, all_profit)
