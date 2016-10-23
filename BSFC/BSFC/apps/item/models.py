@@ -67,7 +67,7 @@ class Item(models.Model):
                                 choices=category_choices,
                                 default=None,
                                 null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField()
 
     def __str__(self):
         return str(self.name)
