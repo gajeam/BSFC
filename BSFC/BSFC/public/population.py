@@ -55,7 +55,7 @@ def populate_single_day(dates):
             #get corresponding order with payment['order']['id'], expanding by 'lineItems,' 'discounts'
             # items = []
             for line_item_dict in order_dict['lineItems']['elements']:
-                quantity = line_item_dict['unitQty']/1000 if 'unitQty' in line_item_dict else 1
+                quantity = line_item_dict['unitQty']/1000.00 if 'unitQty' in line_item_dict else 1
                 item_qs = Item.objects.filter(
                     name=line_item_dict['name'], created_at__gte=pacific_datetime_beginning_of_day, created_at__lte=pacific_datetime_end_of_day
                 )
