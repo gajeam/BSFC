@@ -19,7 +19,10 @@ def validate_line_item(line_item_dict):
 	if 'item' not in line_item_dict:
 		if line_item_dict['name'] == 'Custom Item':
 			log.error('Custom Item logged')
-			return custom_item
+			c = custom_item
+			if 'price' in line_item_dict:
+				c['price'] = line_item_dict['price']
+			return c
 		else:
 			log.error(line_item_dict['name'] + ' does not have an order id in Clover. Recorded as Unknown Item.')
 			return unknown_item
