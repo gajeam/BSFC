@@ -6,16 +6,13 @@ import requests
 
 def get_api_data(endpoint, filterItems=None, expandItems=None):
     url = 'https://api.clover.com/v3/merchants/RCM4Z558RGRJ8/' + endpoint
+    parameters = {"limit": 1000}
     if filterItems is not None:
-        url += '?filter=' + filterItems
+        parameters["filter"] = filterItems
     if expandItems is not None:
-        if filterItems is not None:
-            url += '&expand=' + expandItems
-        else:
-            url += '?expand=' + expandItems
-    url += '&limit=1000'
+        parameters["expand"] = expandItems
     headers = {"Authorization": "Bearer 8661cfda-4d67-fe8b-61fd-939901219070"}
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, params=parameters)
     if response.status_code == 200:
         # this gives a list of objects (dicts) of endpoint, expanded by params
         resp_json = response.json()
